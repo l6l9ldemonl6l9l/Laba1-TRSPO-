@@ -1,12 +1,6 @@
 import java.io.*;
 import java.util.UUID;
 
-enum Status{
-    NoEating,
-    FoxEating,
-    CrowEating
-}
-
 public class AnimalLife{
   private final UUID id;
   final private Fox fox;

@@ -11,12 +11,15 @@ public class DeityLife extends Date{
     public DeityLife (Deity deity){
       this.deity=deity;
     }
+
     public void addAnimalLife(AnimalLife animalLife){
         animalsLife.put(animalLife.getID(), animalLife);
     }
+
     public void addFood(Food food){
         foods.put(food.getID(), food);
     }
+    
     public AnimalLife getAnimalLifeByID(UUID animalLifeID){
         return animalsLife.getOrDefault(animalLifeID, null);
     }
@@ -29,7 +32,7 @@ public class DeityLife extends Date{
         showInformation();
         for ( AnimalLife value1 : animalsLife.values()) {
           for ( Food value2 : foods.values()) {
-                loseFood(value1.getID(),value2.getID());  
+                loseFood(value1.getID(),value2.getID());
             }
         }
     }

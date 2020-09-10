@@ -2,9 +2,9 @@ import java.io.*;
 import java.util.Date;
 import java.util.UUID;
 
-public class Food{
-  private int taste;
-  private String kindFood;
+final public class Food{
+  private final int taste;
+  private final String kindFood;
   private final Date birthday;
   private final UUID id;
 
@@ -14,19 +14,17 @@ public class Food{
       this.kindFood = kindFood;
       this.id =id;
   }
+
   public UUID getID() {
     return id;
   }
+
   public int getTaste() {
-       return taste;
-   }
-   public String getKindFood() {
-       return kindFood;
-   }
-   public Date getBirthday() {
-       return birthday;
-   }
-   public void setTaste(int taste) {
-       this.taste = taste;
-   }
+    return taste;
+  }
+
+  public String getKindFood() {
+    return kindFood;
+  }
+
 }
