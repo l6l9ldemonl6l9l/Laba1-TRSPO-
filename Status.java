@@ -1,8 +1,7 @@
 import java.io.*;
-import java.util.UUID;
 
-enum Status{
-    NoEating,
-    FoxEating,
-    CrowEating
+public enum Status{
+  noEating,
+  foxEating,
+  crowEating
 }

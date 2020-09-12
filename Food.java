@@ -8,14 +8,14 @@ final public class Food{
   private final Date birthday;
   private final UUID id;
 
-  public Food(int taste, String kindFood,UUID id) {
-      this.birthday = new Date();
-      this.taste = taste;
-      this.kindFood = kindFood;
-      this.id =id;
+  public Food(int taste, String kindFood) {
+    this.birthday = new Date();
+    this.taste = taste;
+    this.kindFood = kindFood;
+    this.id =UUID.randomUUID();;
   }
 
-  public UUID getID() {
+  public UUID getId() {
     return id;
   }
 
@@ -23,8 +23,7 @@ final public class Food{
     return taste;
   }
 
-  public String getKindFood() {
-    return kindFood;
+  public void showInformationAboutFood(){
+    System.out.println("Еда : "+ kindFood + ". Дата создания: "+ birthday+". Вкус: "+ taste +".\n");
   }
-
 }

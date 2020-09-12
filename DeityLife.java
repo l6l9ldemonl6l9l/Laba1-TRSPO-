@@ -3,54 +3,97 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class DeityLife extends Date{
-    private HashMap<UUID, AnimalLife> animalsLife = new HashMap<>();
-    private HashMap<UUID, Food> foods = new HashMap<>();
-    private Deity deity;
+final public class DeityLife extends Date{
+  private HashMap<UUID, AnimalLife> animalsLife = new HashMap<>();
+  private HashMap<UUID, Food> foods = new HashMap<>();
+  private Deity deity;
 
-    public DeityLife (Deity deity){
-      this.deity=deity;
-    }
+  public DeityLife (Deity deity){
+    this.deity=deity;
+  }
 
-    public void addAnimalLife(AnimalLife animalLife){
-        animalsLife.put(animalLife.getID(), animalLife);
-    }
+  public void addAnimalLife(AnimalLife animalLife){
+    animalsLife.put(animalLife.getId(), animalLife);
+  }
 
-    public void addFood(Food food){
-        foods.put(food.getID(), food);
-    }
-    
-    public AnimalLife getAnimalLifeByID(UUID animalLifeID){
-        return animalsLife.getOrDefault(animalLifeID, null);
-    }
+  public void addFood(Food food){
+    foods.put(food.getId(), food);
+  }
 
-    public Food getFoodByID(UUID foodID){
-        return foods.getOrDefault(foodID, null);
+  public void deletFood(UUID id){
+    if(getFoodById(id)!=null){
+      foods.remove(id);
     }
+  }
 
-    public void startStory(){
-        showInformation();
-        for ( AnimalLife value1 : animalsLife.values()) {
-          for ( Food value2 : foods.values()) {
-                loseFood(value1.getID(),value2.getID());
-            }
+  public AnimalLife getAnimalLifeById(UUID animalLifeId){
+    return animalsLife.getOrDefault(animalLifeId, null);
+  }
+
+  public Food getFoodById(UUID foodId){
+    return foods.getOrDefault(foodId, null);
+  }
+
+  public void startStory(int choose1,int choose2){
+    UUID testFoodId=null;
+
+    int iter1=1;
+    for ( AnimalLife valueAnimal : animalsLife.values()) {
+      int iter2=1;
+
+      for ( Food valueFood : foods.values()) {
+        if (iter1==choose1 & iter2==choose2){
+          loseFood(valueAnimal.getId(),valueFood.getId());
+          testFoodId=valueFood.getId();
         }
-    }
-
-    public void showInformation(){
-      System.out.println("Автор:"+deity.getName()+".\n");
-
-      for ( AnimalLife value : animalsLife.values()) {
-          value.showInformation();
+        iter2+=1;
       }
-      for ( Food value : foods.values()) {
-                System.out.println("Вид еды:"+ value.getKindFood()+".\n");
+      iter1+=1;
+    }
+
+    deletFood(testFoodId);
+  }
+
+  public void train(int choose1){
+    int iter1=1;
+    for ( AnimalLife valueAnimal : animalsLife.values()) {
+      if (iter1==choose1){
+        valueAnimal.trainingAnimals();
       }
+      iter1+=1;
     }
+  }
 
-    public void loseFood(UUID idAnimal,UUID idFood){
-      System.out.println(getAnimalLifeByID(idAnimal).foodDispute(getFoodByID(idFood)));
+  public void showInformation(){
+    deity.showInformationAboutAuthor();
+    showInformationAboutFoods();
+    showInformationAboutAminals();
+  }
+
+  public void showInformationAboutFoods(){
+    int iterator=1;
+    for ( Food value : foods.values()) {
+      System.out.print(iterator+". ");
+      value.showInformationAboutFood();
+      iterator+=1;
     }
+  }
 
+  public void showInformationAboutAminals(){
+    int iterator=1;
+    for ( AnimalLife value : animalsLife.values()) {
+      System.out.print(iterator+". ");
+      value.showInformation();
+      iterator+=1;
+    }
+  }
 
+  public void loseFood(UUID idAnimal,UUID idFood){
+    AnimalLife animals = getAnimalLifeById(idAnimal);
+    Food food = getFoodById(idFood);
+
+    animals.foodDispute(food);
+
+    animals.toString(animals.getStatus());
+  }
 }
